@@ -9,11 +9,15 @@ function App() {
   const [currencies, setCurrencies] = useState("");
   const [inputNumber, setInputNumber] = useState(1);
   const [convertResult, setConvertResult] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const KEY = import.meta.env.VITE_API_KEY;
+  const API_CURRENCIES = import.meta.env.VITE_API_CURRENCIES;
+  const API_CONVERT = import.meta.env.VITE_API_CONVERT;
 
   if (!localStorage.getItem("currenciesData")) {
     console.log("Localstorage tidak ada");
-    const urlCountry =
-      "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_COIYEep2Ufn6L7oxWJRFvRVD41YSyLzXvvoOZYwg";
+    const urlCountry = API_CURRENCIES + KEY;
     async function getDataCurrency() {
       try {
         const response = await fetch(urlCountry);
@@ -28,14 +32,17 @@ function App() {
     getDataCurrency();
   }
 
-  const urlConvert = `https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_COIYEep2Ufn6L7oxWJRFvRVD41YSyLzXvvoOZYwg&base_currency=${baseCurrency}&currencies=${currencies}`;
+  const urlConvert = `${API_CONVERT}${KEY}&base_currency=${baseCurrency}&currencies=${currencies}`;
   const getDataExchange = async () => {
+    setLoading(true);
     try {
       const response = await fetch(urlConvert);
       const data = await response.json();
       setConvertResult(data);
     } catch (error) {
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,7 +77,7 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 gap-6">
-      <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col gap-4 items-center">
         <div className="flex gap-1 justify-center flex-col w-full">
           <label
             htmlFor="inputNumber"
@@ -108,7 +115,7 @@ function App() {
         <div className="border px-6 py-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded-2xl shadow-md w-full">
           <h2 className="text-xl text-center">
             {convertResult.data
-              ? convertResult.data[currencies]
+              ? !loading
                 ? `${symbol(baseCurrency)} ${inputNumber} = ${symbol(
                     currencies
                   )} ${numberFormat(
