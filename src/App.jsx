@@ -13,7 +13,6 @@ function App() {
 
   if (!localStorage.getItem("currenciesData")) {
     console.log("Localstorage tidak ada");
-    // const urlCountry = API_CURRENCIES + KEY;
     async function getDataCurrency() {
       try {
         const res = await fetch("/api/currency");
@@ -73,7 +72,7 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 gap-6">
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex w-85 flex-col gap-4 items-center">
         <div className="flex gap-1 justify-center flex-col w-full">
           <label
             htmlFor="inputNumber"
@@ -110,14 +109,14 @@ function App() {
         </div>
         <div className="border px-6 py-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded-2xl shadow-md w-full">
           <h2 className="text-xl text-center">
-            {convertResult.data
-              ? !loading
-                ? `${symbol(baseCurrency)} ${inputNumber} = ${symbol(
-                    currencies
-                  )} ${numberFormat(
-                    convertResult.data[currencies] * inputNumber
-                  )}`
-                : "Converting... Please wait."
+            {loading
+              ? "Converting... Please wait."
+              : convertResult.data
+              ? `${symbol(baseCurrency)} ${inputNumber} = ${symbol(
+                  currencies
+                )} ${numberFormat(
+                  convertResult.data[currencies] * inputNumber
+                )}`
               : "Select currencies to convert"}
           </h2>
         </div>
