@@ -28,7 +28,7 @@ function App() {
     getDataCurrency();
   }
 
-  const urlConvert = `/api/convert?baseCurrencyy=${baseCurrency}&currencies=${currencies}`;
+  const urlConvert = `/api/convert?baseCurrency=${baseCurrency}&currencies=${currencies}`;
   const getDataExchange = async () => {
     setLoading(true);
     try {

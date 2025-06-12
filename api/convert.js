@@ -16,7 +16,7 @@ export default async function apiConvert(req, res) {
     res.status(200).json(data);
   } catch (error) {
     res(500).json({
-        error:"Gagal Fetch"
-    })
+      error: "Gagal Fetch",
+    });
   }
 }
