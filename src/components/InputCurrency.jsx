@@ -13,7 +13,7 @@ const InputCurrency = ({ label, inputName, action, value, data }) => {
         <select
           name={inputName}
           id={inputName}
-          className="appearance-none border p-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-black dark:text-white rounded-xl shadow-md"
+          className="w-full appearance-none border p-4 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-black dark:text-white rounded-xl shadow-md"
           onChange={action}
           value={value}
         >

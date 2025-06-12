@@ -96,7 +96,7 @@ function App() {
           />
         </div>
 
-        <div className="flex flex-col gap-6 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white border p-8 rounded-2xl shadow-md">
+        <div className="flex w-full flex-col gap-6 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white border p-8 rounded-2xl shadow-md">
           <InputCurrency
             label="Base Currency"
             inputName="baseCurrency"
