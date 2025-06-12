@@ -4,7 +4,6 @@ export default async function apiCurrencies(req, res) {
 
   try {
     const response = await fetch(`${API_CURRENCIES}${API_KEY}`);
-
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {

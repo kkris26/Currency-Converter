@@ -11,20 +11,13 @@ function App() {
   const [convertResult, setConvertResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const KEY = import.meta.env.VITE_API_KEY;
-  const API_CURRENCIES = import.meta.env.VITE_API_CURRENCIES;
-  const API_CONVERT = import.meta.env.VITE_API_CONVERT;
-
-
   if (!localStorage.getItem("currenciesData")) {
     console.log("Localstorage tidak ada");
     // const urlCountry = API_CURRENCIES + KEY;
     async function getDataCurrency() {
       try {
         const res = await fetch("/api/currency");
-        console.log(res);
         const data = await res.json();
-        console.log(data);
         localStorage.setItem("currenciesData", JSON.stringify(data));
         setCurrenciesData(data);
         console.log(data);
@@ -35,7 +28,7 @@ function App() {
     getDataCurrency();
   }
 
-  const urlConvert = `${API_CONVERT}${KEY}&base_currency=${baseCurrency}&currencies=${currencies}`;
+  const urlConvert = `/api/convert?baseCurrencyy=${baseCurrency}&currencies=${currencies}`;
   const getDataExchange = async () => {
     setLoading(true);
     try {
